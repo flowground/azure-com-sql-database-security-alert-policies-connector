@@ -1,0 +1,151 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serverName": {
+            "required": true,
+            "type": "string"
+        },
+        "databaseName": {
+            "required": true,
+            "type": "string"
+        },
+        "securityAlertPolicyName": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "default"
+            ]
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "allOf": [
+                        {
+                            "description": "ARM resource.",
+                            "properties": {
+                                "id": {
+                                    "description": "Resource ID.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "description": "Resource name.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "description": "Resource type.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object",
+                            "x-ms-azure-resource": true
+                        }
+                    ],
+                    "description": "ARM proxy resource.",
+                    "properties": {},
+                    "type": "object"
+                }
+            ],
+            "description": "Contains information about a database Threat Detection policy.",
+            "properties": {
+                "kind": {
+                    "description": "Resource kind.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "location": {
+                    "description": "The geo-location where the resource lives",
+                    "type": "string",
+                    "x-ms-mutability": [
+                        "read",
+                        "create"
+                    ]
+                },
+                "properties": {
+                    "description": "Properties of the security alert policy.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "disabledAlerts": {
+                            "description": "Specifies the semicolon-separated list of alerts that are disabled, or empty string to disable no alerts. Possible values: Sql_Injection; Sql_Injection_Vulnerability; Access_Anomaly; Data_Exfiltration; Unsafe_Action.",
+                            "type": "string"
+                        },
+                        "emailAccountAdmins": {
+                            "description": "Specifies that the alert is sent to the account administrators.",
+                            "enum": [
+                                "Enabled",
+                                "Disabled"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "name": "SecurityAlertPolicyEmailAccountAdmins"
+                            }
+                        },
+                        "emailAddresses": {
+                            "description": "Specifies the semicolon-separated list of e-mail addresses to which the alert is sent.",
+                            "type": "string"
+                        },
+                        "retentionDays": {
+                            "description": "Specifies the number of days to keep in the Threat Detection audit logs.",
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "state": {
+                            "description": "Specifies the state of the policy. If state is Enabled, storageEndpoint and storageAccountAccessKey are required.",
+                            "enum": [
+                                "New",
+                                "Enabled",
+                                "Disabled"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "name": "SecurityAlertPolicyState"
+                            }
+                        },
+                        "storageAccountAccessKey": {
+                            "description": "Specifies the identifier key of the Threat Detection audit storage account. If state is Enabled, storageAccountAccessKey is required.",
+                            "type": "string",
+                            "x-ms-mutability": [
+                                "create",
+                                "update"
+                            ]
+                        },
+                        "storageEndpoint": {
+                            "description": "Specifies the blob storage endpoint (e.g. https://MyAccount.blob.core.windows.net). This blob storage will hold all Threat Detection audit logs. If state is Enabled, storageEndpoint is required.",
+                            "type": "string"
+                        },
+                        "useServerDefault": {
+                            "description": "Specifies whether to use the default server policy.",
+                            "enum": [
+                                "Enabled",
+                                "Disabled"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "name": "SecurityAlertPolicyUseServerDefault"
+                            }
+                        }
+                    },
+                    "required": [
+                        "state"
+                    ],
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
